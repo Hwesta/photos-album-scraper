@@ -24,10 +24,14 @@ def main(album_url):
     # Title: tag.name = title
     for tag in soup.find_all(True):
         print('TAG HERE', tag.name)
-        if tag.name not in ('script', 'html', 'head', 'base', 'meta', 'link', 'style', 'body'):
-            print(tag)
+        if tag.name not in ('script', 'html', 'head', 'base', 'meta', 'link', 'style', 'body', 'svg', 'defs', 'radialgradient'):
+            print(tag.name)
+        if tag.name == 'div':
+            print(tag.attrs)
     # for tag in soup.find_all(style=filter_bg_image):
     #     print(tag)
+    # This isn't giving me the same thing I'm seeing in a browser
+    # Look at manually saving as har file, using haralyzer package to work with it
 
 
 if __name__ == '__main__':
