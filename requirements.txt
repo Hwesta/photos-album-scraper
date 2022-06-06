@@ -1,8 +1,0 @@
-beautifulsoup4
-lxml
-requests
-
-
-# Code beauty
-isort
-autopep8
