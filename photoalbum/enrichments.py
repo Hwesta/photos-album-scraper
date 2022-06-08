@@ -57,6 +57,7 @@ class Enrichments:
 
     def __init__(self, protobuf):
         self.protobuf = protobuf
+        self.ordering_str = None
 
     def __repr__(self):
         return repr(self.protobuf)

@@ -5,6 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 
 from .enrichments import Enrichments
+from .image import Image
 
 
 class Album:
@@ -18,6 +19,8 @@ class Album:
         self.album_url = album_url
         self.soup = None
         self.protobuf = None
+        self.enrichments = None
+        self.images = None
 
     def get_album(self, parser="html.parser"):
         """Fetch album from URL, parse to protobuf"""
@@ -49,6 +52,21 @@ class Album:
 
         with open(protobuf_output, "w") as f:
             json.dump(self.protobuf, f, indent=4)
+
+    def load_protobuf(self, protobuf_input):
+        """Read the protobuf from a JSON file"""
+        print(f"Loading protobuf from {protobuf_input}")
+        with open(protobuf_input, "r") as f:
+            self.protobuf = json.load(f)
+
+    def parse_images(self):
+        print("Parsing images")
+        self.images = []
+        for img in self.protobuf[self.IMAGE_ARRAY_INDEX]:
+            image = Image(img)
+            image.parse_protobuf()
+            print(image)
+            self.images.append(image)
 
     def parse_enrichments(self):
         print("Parsing enrichments")
