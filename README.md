@@ -37,6 +37,7 @@ Can't correlate info from API with info parsed from saved page, no IDs overlap
 `AF_initDataCallback(<stuff here>)` seems to be a protobuf
 
 Another idea: breakpoint on something, see what the actual code is doing
+Another idea: manually saving as har file, using haralyzer package to work with it
 
 
 ### protobuf docs
@@ -53,14 +54,14 @@ overall structure
 ]
 ```
 
-list of images format
+list of images format - same order as display
 ```
 [
     "AF1QipOlQgoYJGjKaFOMHJkYqQVH4zxkn9brxgwXHhq2", # Not the ID
     [
-        "https://lh3.googleusercontent.com/LsrFFBNSwatmdiOo1HkWmLm3Rp0rDFxvtisUx51cnTX7R-N5s-OsWsk0b4_KTckar_6wAHgdDjSWV4CZlsTYIPtr7FkHqRVEMaV3OMFBR-3DPh3OAwD7zueJL_K9cjWRK8QBavWbRQo",  # baseURl
-        4608, # w
-        3456, # h
+        "baseURL",
+        <width>,
+        <height>,
         null,
         [],
         null,
@@ -71,10 +72,10 @@ list of images format
             13155507
         ]
     ],
-    1654022822000, # date may 31 11:47 photo taken
+    <date, unix epoch, photo taken>,
     "TOt7ob2rr6UBovGSirT8orZJDaM",
-    -25200000, # tz offset
-    1654554455008, # june 6 15:30 - added to album??
+    <tz offset, seconds, probably for date taken>,
+    <date, unix epoch, added to album?>,
     [
         "AF1QipMN6zXOdB5TdqYqMm_qJ4Q0699P" # same in both images
     ],
@@ -113,7 +114,7 @@ list of images format
     null,
     19222, # same in both images
     [],
-    { # related to location?
+    { # related to ordering?
         "101428965": [
             0,
             "vdh9cohf070000000000004k"  # this value changes when reordered
@@ -122,8 +123,197 @@ list of images format
 ],
 ```
 
-* `99218341` = possibly stable key for location & text info
+list of enhancements format - order added?
+
+text
+```
+[
+    "AF1QipPIawvW8shUbT4NGrGEPaZdIEgTBE900SoMc-oudntXjsUWy5x4",
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    [],
+    null,
+    null,
+    null,
+    null,
+    [],
+    null,
+    null,
+    [],
+    {
+        "99218341": [
+            [
+                1,  # 1 = text?
+                [
+                    "text to display"
+                ]
+            ]
+        ],
+        "101428965": [ # something about ordering
+            0,
+            "vdh9cohf0700g0000000004a"
+        ]
+    }
+]
+```
+
+location
+```
+[
+    "AF1QipNv0h78Co3shx2KGoE-UeBbJWdRtWUbKuLmRMovvO1hZCErC0UQ",
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    [],
+    null,
+    null,
+    null,
+    null,
+    [],
+    null,
+    null,
+    [],
+    {
+        "99218341": [
+            [
+                2, # 2 = location?
+                null,
+                [
+                    null,
+                    [
+                        [
+                            3, # location?
+                            [
+                                [
+                                    "6090683026124656563", # different between entries, consistent for location
+                                    "13515749891091067787" # ditto
+                                ]
+                            ],
+                            null,
+                            "Big text (main location)",
+                            "small text (subscript, eg province, country)",
+                            [
+                                <lat>,
+                                <lon>
+                            ],
+                            null,
+                            0
+                        ]
+                    ]
+                ]
+            ]
+        ],
+        "101428965": [ # related to ordering?
+            0,
+            "vdh9cohf06vv00000000004a"
+        ]
+    }
+],
+```
+
+map
+```
+[
+    "AF1QipOqAHcPqviaaFzB5JJeU4dKI6jMM_wOunhh3xW8Pt3lFCN9C9uu",
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    [],
+    null,
+    null,
+    null,
+    null,
+    [],
+    null,
+    null,
+    [],
+    {
+        "99218341": [
+            [
+                3,
+                null,
+                null,
+                [
+                    null,
+                    null,
+                    null,
+                    [
+                        [ # source
+                            3,
+                            [
+                                [
+                                    "6090683026124656563",
+                                    "13515749891091067787"
+                                ]
+                            ],
+                            null,
+                            "big text (main location)",
+                            "small text (context info)",
+                            [
+                                <lat>,
+                                <lon>
+                            ],
+                            null,
+                            0
+                        ]
+                    ],
+                    [
+                        [ # destination
+                            3,
+                            [
+                                [
+                                    "5177074476702594547",
+                                    "1472861389740886636"
+                                ]
+                            ],
+                            null,
+                            "big text (main location)",
+                            "small text (context info)",
+                            [
+                                <lat>,
+                                <lon>
+                            ],
+                            null,
+                            0
+                        ]
+                    ]
+                ]
+            ]
+        ],
+        "101428965": [
+            0,
+            "vdh9cohf06vto0000000004a"
+        ]
+    }
+],
+```
+
+
+* `99218341` = stable key for enrichment info
+    * 1=text, 2=location, 3=map
+    *
 * `101428965` = ordering info? always has `[0, <similar string>]`
+
+In `101428965` the value may be a composite of multiple strings? re recording went from
+
+```
+- vdh9d3bi
++ vdh9cohf070100000000004k
+```
+
+same: `vdh9` appears repeatedly
+often ends with `0000000000004k` or `00000000004a`
+
 
 ## Ref
 
@@ -136,6 +326,7 @@ list of images format
 * https://developers.google.com/photos/library/guides/list#listing-album-contents
 * https://developers.google.com/photos/library/reference/rest/v1/albums
 * https://stackoverflow.com/questions/52281453/google-photos-api-with-filter-to-get-photos-with-album-information
+* https://github.com/alexcrist/scrape-google-photos
 
 ### auth
 
