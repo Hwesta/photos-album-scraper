@@ -13,17 +13,20 @@ class Album:
 
     PROTOBUF_REGEX = r"^AF_initDataCallback"
     IMAGE_ARRAY_INDEX = 1
+    ALBUM_ARRAY_INDEX = 3
     ENRICHMENT_ARRAY_INDEX = 4
 
-    def __init__(self, album_url):
-        self.album_url = album_url
+    def __init__(self):
+        self.album_url = None
         self.soup = None
         self.protobuf = None
+        self.name = None
         self.enrichments = None
         self.images = None
 
-    def get_album(self, parser="html.parser"):
+    def get_album(self, album_url, parser="html.parser"):
         """Fetch album from URL, parse to protobuf"""
+        self.album_url = album_url
         print(f"Fetching {self.album_url}")
 
         try:
@@ -44,22 +47,30 @@ class Album:
         self.protobuf = json.loads(target[start:end])
         print("Found protobuf")
 
-    def write_protobuf(self, protobuf_output):
+    def load_protobuf(self, protobuf_file):
+        """Read the protobuf from a JSON file"""
+        print(f"Loading protobuf from {protobuf_file}")
+        with open(protobuf_file, "r") as f:
+            self.protobuf = json.load(f)
+
+    def write_protobuf(self, protobuf_file):
         """Write the protobuf as formatted JSON."""
-        print(f"Writing protobuf to {protobuf_output}")
+        print(f"Writing protobuf to {protobuf_file}")
         if self.protobuf is None:
             raise RuntimeError("Must run get_album() first")
 
-        with open(protobuf_output, "w") as f:
+        with open(protobuf_file, "w") as f:
             json.dump(self.protobuf, f, indent=4)
 
-    def load_protobuf(self, protobuf_input):
-        """Read the protobuf from a JSON file"""
-        print(f"Loading protobuf from {protobuf_input}")
-        with open(protobuf_input, "r") as f:
-            self.protobuf = json.load(f)
+    def parse_protobuf(self):
+        self.name = self.protobuf[self.ALBUM_ARRAY_INDEX][1]
+        print("name", self.name)
 
-    def parse_images(self):
+        self._parse_enrichments()
+        self._parse_images()
+        print()
+
+    def _parse_images(self):
         print("Parsing images")
         self.images = []
         for img in self.protobuf[self.IMAGE_ARRAY_INDEX]:
@@ -68,7 +79,7 @@ class Album:
             print(image)
             self.images.append(image)
 
-    def parse_enrichments(self):
+    def _parse_enrichments(self):
         print("Parsing enrichments")
         self.enrichments = []
         for enrichment in self.protobuf[self.ENRICHMENT_ARRAY_INDEX]:

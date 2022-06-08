@@ -7,38 +7,44 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(
         "Scrapes Google Photos into static HTML page with images"
     )
-    parser.add_argument("album_url", help="URL to Google photos album to scrape")
 
+    # Where to get data - 1 required
     parser.add_argument(
-        "--protobuf-input",
-        help="Read the raw protobuf output from this file and use it",
+        "--fetch",
+        metavar="URL",
+        help="Fetch the album from this URl, if given",
     )
     parser.add_argument(
-        "--protobuf-output", help="Write the raw protobuf output to this file, if given"
+        "--load",
+        metavar="FILENAME",
+        help="Load the raw protobuf from this file, if given",
     )
 
+    # What to do with it - any or all
     parser.add_argument(
-        "--fetch", action="store_true", help="Fetch the album from the URL"
+        "--protobuf-output",
+        metavar="FILENAME",
+        help="Write the raw protobuf output to this file, if given",
     )
-    parser.add_argument(
-        "--load", action="store_true", help="Load the protobuf from protobuf-input"
-    )
-    parser.add_argument("--parse", action="store_true", help="Parse the response")
     parser.add_argument("--ordering", action="store_true", help="ordering experiment")
-    args = parser.parse_args()
+    parser.add_argument(
+        "--render", metavar="FILENAME", help="Render HTML to this file, if given"
+    )
 
-    album = Album(args.album_url)
+    args = parser.parse_args()
+    if not (args.fetch or args.load):
+        parser.error("Must specify one of --fetch or --load")
+
+    album = Album()
     if args.fetch:
-        album.get_album()
+        album.get_album(args.fetch)
     elif args.load:
-        album.load_protobuf(args.protobuf_input)
+        album.load_protobuf(args.load)
 
     if args.protobuf_output:
         album.write_protobuf(args.protobuf_output)
 
-    if args.parse:
-        album.parse_enrichments()
-        album.parse_images()
+    album.parse_protobuf()
 
     if args.ordering:
         album.print_ordered()
