@@ -78,3 +78,8 @@ class Album:
             enrichment.parse_protobuf()
             print(enrichment)
             self.enrichments.append(enrichment)
+
+    def print_ordered(self):
+        ordering_dict = {x.ordering_str: x for x in self.enrichments + self.images}
+        for k in sorted(ordering_dict.keys()):
+            print(k, ordering_dict[k])

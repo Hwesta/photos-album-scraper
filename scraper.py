@@ -24,6 +24,7 @@ if __name__ == "__main__":
         "--load", action="store_true", help="Load the protobuf from protobuf-input"
     )
     parser.add_argument("--parse", action="store_true", help="Parse the response")
+    parser.add_argument("--ordering", action="store_true", help="ordering experiment")
     args = parser.parse_args()
 
     album = Album(args.album_url)
@@ -38,3 +39,6 @@ if __name__ == "__main__":
     if args.parse:
         album.parse_enrichments()
         album.parse_images()
+
+    if args.ordering:
+        album.print_ordered()

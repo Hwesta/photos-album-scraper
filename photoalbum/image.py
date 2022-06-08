@@ -69,6 +69,9 @@ class Image:
 
     """
 
+    ORDERING_DICT_IDX = 16
+    ORDERING_KEY = "101428965"
+
     def __init__(self, protobuf):
         self.protobuf = protobuf
         self.ordering_str = None
@@ -86,6 +89,7 @@ class Image:
         self.base_url = self.protobuf[1][0]
         self.width = self.protobuf[1][1]
         self.height = self.protobuf[1][2]
+        self.ordering_str = self.protobuf[self.ORDERING_DICT_IDX][self.ORDERING_KEY][1]
 
     def to_html(self):
         raise NotImplementedError("Implement in child class")

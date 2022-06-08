@@ -92,6 +92,7 @@ class Text(Enrichments):
     def parse_protobuf(self):
         data_dict = self.protobuf[self.DICT_IDX]
         self.text_str = data_dict[self.DATA_KEY][0][1][0]
+        self.ordering_str = data_dict[self.ORDERING_KEY][1]
 
 
 class Location(Enrichments):
@@ -139,17 +140,24 @@ class Location(Enrichments):
         return f'Location: "{self.main_text}", "{self.additional_text}" ({self.lat},{self.lon})'
 
     def parse_protobuf(self, protobuf_is_inner=False):
-        # Allow reuse by Map
-        if protobuf_is_inner:
+        if protobuf_is_inner:  # inside a Map
             inner_array = self.protobuf
-        else:
+        else:  # standalone
             data_dict = self.protobuf[self.DICT_IDX]
             inner_array = data_dict[self.DATA_KEY][0][2][1][0]
+            self.ordering_str = data_dict[self.ORDERING_KEY][1]
         self.main_text = inner_array[3]
-        self.additional_text = inner_array[4]
-        # Move decimal over 7 digits for lat/lon
-        self.lat = inner_array[5][0] * 10**-7
-        self.lon = inner_array[5][1] * 10**-7
+        try:
+            self.additional_text = inner_array[4]
+        except IndexError:
+            self.additional_text = ""
+        try:
+            # Move decimal over 7 digits for lat/lon
+            self.lat = inner_array[5][0] * 10**-7
+            self.lon = inner_array[5][1] * 10**-7
+        except (IndexError, TypeError):
+            self.lat = None
+            self.lon = None
 
 
 class Map(Enrichments):
@@ -225,3 +233,4 @@ class Map(Enrichments):
         self.source_location.parse_protobuf(protobuf_is_inner=True)
         self.destination_location = Location(dest_protobuf)
         self.destination_location.parse_protobuf(protobuf_is_inner=True)
+        self.ordering_str = data_dict[self.ORDERING_KEY][1]
