@@ -74,6 +74,7 @@ class Image:
 
     def __init__(self, protobuf):
         self.protobuf = protobuf
+        self.render_template = "image.html.j2"
         self.ordering_str = None
         self.base_url = None
         self.width = None
@@ -90,6 +91,3 @@ class Image:
         self.width = self.protobuf[1][1]
         self.height = self.protobuf[1][2]
         self.ordering_str = self.protobuf[self.ORDERING_DICT_IDX][self.ORDERING_KEY][1]
-
-    def to_html(self):
-        raise NotImplementedError("Implement in child class")

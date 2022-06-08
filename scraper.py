@@ -48,3 +48,6 @@ if __name__ == "__main__":
 
     if args.ordering:
         album.print_ordered()
+
+    if args.render:
+        album.render_html(args.render)

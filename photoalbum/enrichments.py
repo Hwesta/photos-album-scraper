@@ -58,14 +58,12 @@ class Enrichments:
     def __init__(self, protobuf):
         self.protobuf = protobuf
         self.ordering_str = None
+        self.render_template = None
 
     def __repr__(self):
         return repr(self.protobuf)
 
     def parse_protobuf(self):
-        raise NotImplementedError("Implement in child class")
-
-    def to_html(self):
         raise NotImplementedError("Implement in child class")
 
 
@@ -84,6 +82,7 @@ class Text(Enrichments):
 
     def __init__(self, *args, **kwargs):
         super(Text, self).__init__(*args, **kwargs)
+        self.render_template = "text.html.j2"
         self.text_str = None
 
     def __str__(self):
@@ -131,6 +130,7 @@ class Location(Enrichments):
 
     def __init__(self, *args, **kwargs):
         super(Location, self).__init__(*args, **kwargs)
+        self.render_template = "location.html.j2"
         self.main_text = None
         self.additional_text = None
         self.lat = None
@@ -219,6 +219,7 @@ class Map(Enrichments):
 
     def __init__(self, *args, **kwargs):
         super(Map, self).__init__(*args, **kwargs)
+        self.render_template = "map.html.j2"
         self.source_location = None
         self.destination_location = None
 

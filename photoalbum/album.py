@@ -1,6 +1,7 @@
 import json
 import re
 
+import jinja2
 import requests
 from bs4 import BeautifulSoup
 
@@ -94,3 +95,14 @@ class Album:
         ordering_dict = {x.ordering_str: x for x in self.enrichments + self.images}
         for k in sorted(ordering_dict.keys()):
             print(k, ordering_dict[k])
+
+    def ordered_items(self):
+        ordering_dict = {x.ordering_str: x for x in self.enrichments + self.images}
+        return [ordering_dict[k] for k in sorted(ordering_dict)]
+
+    def render_html(self, output_file):
+        env = jinja2.Environment(loader=jinja2.PackageLoader("photoalbum"))
+        page_template = env.get_template("index.html.j2")
+        output_text = page_template.render(album=self, items=self.ordered_items())
+        with open(output_file, "w") as f:
+            f.write(output_text)
