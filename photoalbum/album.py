@@ -1,5 +1,6 @@
 import json
 import re
+from pathlib import Path
 
 import jinja2
 import requests
@@ -24,6 +25,7 @@ class Album:
         self.name = None
         self.enrichments = None
         self.images = None
+        self.directory = None
 
     def get_album(self, album_url, parser="html.parser"):
         """Fetch album from URL, parse to protobuf"""
@@ -69,6 +71,7 @@ class Album:
 
         self._parse_enrichments()
         self._parse_images()
+        self.directory = Path(self.name.replace(" ", "-").lower())
         print()
 
     def _parse_images(self):
@@ -100,9 +103,19 @@ class Album:
         ordering_dict = {x.ordering_str: x for x in self.enrichments + self.images}
         return [ordering_dict[k] for k in sorted(ordering_dict)]
 
-    def render_html(self, output_file):
-        env = jinja2.Environment(loader=jinja2.PackageLoader("photoalbum"))
+    def download_images(self):
+        self.directory.mkdir(parents=True, exist_ok=True)
+        for image in self.images:
+            image.download_image(self.directory)
+
+    def find_local_images(self):
+        for image in self.images:
+            image.find_local_image(self.directory)
+
+    def render_html(self, output_file: Path = Path("index.html")):
+        env = jinja2.Environment(loader=jinja2.PackageLoader(__name__))
         page_template = env.get_template("index.html.j2")
-        output_text = page_template.render(album=self, items=self.ordered_items())
-        with open(output_file, "w") as f:
-            f.write(output_text)
+        html = page_template.render(album=self, items=self.ordered_items())
+        html_file = self.directory / output_file
+        print(f"Writing HTML to {html_file}")
+        html_file.write_text(html)

@@ -1,3 +1,10 @@
+import mimetypes
+from pathlib import Path
+
+import magic
+import requests
+
+
 class Image:
     """An image in an album
 
@@ -18,7 +25,7 @@ class Image:
             ]
         ],
         <date, unix epoch, photo taken>,
-        "TOt7ob2rr6UBovGSirT8orZJDaM",
+        "TOt7ob2rr6UBovGSirT8orZJDaM", # not the ID, but stable across requests & remove/re-add to album
         <tz offset, seconds, probably for date taken>,
         <date, unix epoch, added to album?>,
         [
@@ -79,15 +86,53 @@ class Image:
         self.base_url = None
         self.width = None
         self.height = None
+        self.file_id = None
+        self.relative_path = None
 
     def __repr__(self):
         return repr(self.protobuf)
 
     def __str__(self):
-        return f"Image: {self.base_url} {self.width}x{self.height}"
+        return f"Image: {self.file_id} {self.base_url} {self.width}x{self.height} path: {self.relative_path}"
 
     def parse_protobuf(self):
         self.base_url = self.protobuf[1][0]
         self.width = self.protobuf[1][1]
         self.height = self.protobuf[1][2]
+        self.file_id = self.protobuf[3]
         self.ordering_str = self.protobuf[self.ORDERING_DICT_IDX][self.ORDERING_KEY][1]
+
+    def download_image(self, directory: Path, redownload=False):
+        # TODO videos?
+        if self.find_local_image(directory) and not redownload:
+            print("Found local image, not re-downloading")
+            return
+
+        # Get
+        url = f"{self.base_url}=d"
+        print(f"Downloading file from {url}")
+        response = requests.get(url)
+        if response.status_code != 200:
+            print(f"Error fetching {url}: {response.status_code}")
+            return
+
+        # Guess extension
+        mimetype = magic.from_buffer(response.content, mime=True)
+        extension = mimetypes.guess_extension(mimetype) or ""
+        self.relative_path = Path(self.file_id).with_suffix(extension)
+
+        # Write
+        write_path = directory / self.relative_path
+        print(f"Writing file to {write_path}")
+        write_path.write_bytes(response.content)
+
+    def find_local_image(self, directory: Path):
+        matches = list(directory.glob(f"{self.file_id}.*"))
+        if len(matches) == 0:
+            print(f"No file found for {directory / self.file_id}.*")
+            return
+        elif len(matches) > 1:
+            raise RuntimeError(f"Multiple files found for {directory / self.file_id}.*")
+        self.relative_path = matches[0].relative_to(directory)
+        print(f"Found {self.relative_path}")
+        return self.relative_path

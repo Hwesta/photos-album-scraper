@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import argparse
+from pathlib import Path
 
 from photoalbum.album import Album
 
@@ -27,9 +28,8 @@ if __name__ == "__main__":
         help="Write the raw protobuf output to this file, if given",
     )
     parser.add_argument("--ordering", action="store_true", help="ordering experiment")
-    parser.add_argument(
-        "--render", metavar="FILENAME", help="Render HTML to this file, if given"
-    )
+    parser.add_argument("--download", action="store_true", help="Download images")
+    parser.add_argument("--render", action="store_true", help="Render HTML")
 
     args = parser.parse_args()
     if not (args.fetch or args.load):
@@ -49,5 +49,10 @@ if __name__ == "__main__":
     if args.ordering:
         album.print_ordered()
 
+    if args.download:
+        album.download_images()
+
     if args.render:
-        album.render_html(args.render)
+        if not args.download:
+            album.find_local_images()
+        album.render_html()

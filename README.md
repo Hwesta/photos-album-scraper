@@ -65,7 +65,7 @@ list of images format - same order as display
         ]
     ],
     <date, unix epoch, photo taken>,
-    "TOt7ob2rr6UBovGSirT8orZJDaM",
+    "TOt7ob2rr6UBovGSirT8orZJDaM", # not the ID, but stable across requests & remove/re-add to album
     <tz offset, seconds, probably for date taken>,
     <date, unix epoch, added to album?>,
     [
