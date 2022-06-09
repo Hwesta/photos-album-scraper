@@ -50,19 +50,19 @@ class Album:
         self.protobuf = json.loads(target[start:end])
         print("Found protobuf")
 
-    def load_protobuf(self, protobuf_file):
+    def load_protobuf(self, protobuf_file: Path):
         """Read the protobuf from a JSON file"""
         print(f"Loading protobuf from {protobuf_file}")
         with open(protobuf_file, "r") as f:
             self.protobuf = json.load(f)
 
-    def write_protobuf(self, protobuf_file):
+    def write_protobuf(self, protobuf_file: Path):
         """Write the protobuf as formatted JSON."""
-        print(f"Writing protobuf to {protobuf_file}")
         if self.protobuf is None:
             raise RuntimeError("Must run get_album() first")
 
-        with open(protobuf_file, "w") as f:
+        print(f"Writing protobuf to {protobuf_file}")
+        with protobuf_file.open("w") as f:
             json.dump(self.protobuf, f, indent=4)
 
     def parse_protobuf(self):

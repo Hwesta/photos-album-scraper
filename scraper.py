@@ -18,6 +18,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--load",
         metavar="FILENAME",
+        type=Path,
         help="Load the raw protobuf from this file, if given",
     )
 
@@ -25,6 +26,7 @@ if __name__ == "__main__":
     parser.add_argument(
         "--protobuf-output",
         metavar="FILENAME",
+        type=Path,
         help="Write the raw protobuf output to this file, if given",
     )
     parser.add_argument("--ordering", action="store_true", help="ordering experiment")
