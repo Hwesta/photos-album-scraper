@@ -5,6 +5,7 @@ from pathlib import Path
 import jinja2
 import requests
 from bs4 import BeautifulSoup
+from slugify import slugify
 
 from .enrichments import Enrichments
 from .image import Image
@@ -71,7 +72,7 @@ class Album:
 
         self._parse_enrichments()
         self._parse_images()
-        self.directory = Path(self.name.replace(" ", "-").lower())
+        self.directory = Path(slugify(self.name))
         print()
 
     def _parse_images(self):
