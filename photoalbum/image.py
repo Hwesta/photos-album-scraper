@@ -103,9 +103,10 @@ class Image:
         self.ordering_str = self.protobuf[self.ORDERING_DICT_IDX][self.ORDERING_KEY][1]
 
     def download_image(self, directory: Path, redownload=False):
+        """Download the images from base_url"""
         # TODO videos?
         if self.find_local_image(directory) and not redownload:
-            print("Found local image, not re-downloading")
+            print(f"Found {directory / self.relative_path}, not re-downloading")
             return
 
         # Get
@@ -125,8 +126,10 @@ class Image:
         write_path = directory / self.relative_path
         print(f"Writing file to {write_path}")
         write_path.write_bytes(response.content)
+        return write_path
 
     def find_local_image(self, directory: Path):
+        """Check `directory` for the image"""
         matches = list(directory.glob(f"{self.file_id}.*"))
         if len(matches) == 0:
             print(f"No file found for {directory / self.file_id}.*")

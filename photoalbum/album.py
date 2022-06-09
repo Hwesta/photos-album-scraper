@@ -19,6 +19,8 @@ class Album:
     ALBUM_ARRAY_INDEX = 3
     ENRICHMENT_ARRAY_INDEX = 4
 
+    HTML_TEMPLATE = "index.html.j2"
+
     def __init__(self):
         self.album_url = None
         self.soup = None
@@ -26,7 +28,10 @@ class Album:
         self.name = None
         self.enrichments = None
         self.images = None
-        self.directory = None
+
+        self.output_directory = "."
+        self.album_directory = None
+        self.html_filename = "index.html"
 
     def get_album(self, album_url, parser="html.parser"):
         """Fetch album from URL, parse to protobuf"""
@@ -60,63 +65,70 @@ class Album:
     def write_protobuf(self, protobuf_file: Path):
         """Write the protobuf as formatted JSON."""
         if self.protobuf is None:
-            raise RuntimeError("Must run get_album() first")
+            raise RuntimeError("Must fetch or load album first")
 
         print(f"Writing protobuf to {protobuf_file}")
         with protobuf_file.open("w") as f:
             json.dump(self.protobuf, f, indent=4)
 
     def parse_protobuf(self):
+        """Parse the protobuf to get album, image, text and map info"""
+        if self.protobuf is None:
+            raise RuntimeError("Must fetch or load album first")
         self.name = self.protobuf[self.ALBUM_ARRAY_INDEX][1]
-        print("name", self.name)
-
         self._parse_enrichments()
         self._parse_images()
-        self.directory = Path(slugify(self.name))
-        print()
+        self.album_directory = Path(slugify(self.name))
 
     def _parse_images(self):
+        """Parse the images array in the protobuf"""
         print("Parsing images")
         self.images = []
         for img in self.protobuf[self.IMAGE_ARRAY_INDEX]:
             image = Image(img)
             image.parse_protobuf()
-            print(image)
             self.images.append(image)
 
     def _parse_enrichments(self):
-        print("Parsing enrichments")
+        """Parse the text, maps and locations from the protobuf"""
+        print("Parsing enrichments (text, maps, locations)")
         self.enrichments = []
         for enrichment in self.protobuf[self.ENRICHMENT_ARRAY_INDEX]:
             enrichment = Enrichments.create_enrichment(enrichment)
             if not enrichment:
                 continue
             enrichment.parse_protobuf()
-            print(enrichment)
             self.enrichments.append(enrichment)
 
-    def print_ordered(self):
-        ordering_dict = {x.ordering_str: x for x in self.enrichments + self.images}
-        for k in sorted(ordering_dict.keys()):
-            print(k, ordering_dict[k])
+    @property
+    def full_directory(self):
+        """Full output path"""
+        return self.output_directory / self.album_directory
+
+    def download_images(self):
+        """Download all images in the album to `full_directory`"""
+        print(f"Downloading images to {self.full_directory}")
+        self.full_directory.mkdir(parents=True, exist_ok=True)
+        for image in self.images:
+            image.download_image(self.full_directory)
+
+    def find_local_images(self):
+        """Check `full_directory` to see if all images are there already"""
+        print(f"Checking {self.full_directory} for existing images")
+        for image in self.images:
+            image.find_local_image(self.full_directory)
 
     def ordered_items(self):
+        """All items in the album, sorted in display order"""
         ordering_dict = {x.ordering_str: x for x in self.enrichments + self.images}
         return [ordering_dict[k] for k in sorted(ordering_dict)]
 
-    def download_images(self):
-        self.directory.mkdir(parents=True, exist_ok=True)
-        for image in self.images:
-            image.download_image(self.directory)
-
-    def find_local_images(self):
-        for image in self.images:
-            image.find_local_image(self.directory)
-
-    def render_html(self, output_file: Path = Path("index.html")):
+    def render_html(self):
+        """Render the album to a HTML file."""
         env = jinja2.Environment(loader=jinja2.PackageLoader(__name__))
-        page_template = env.get_template("index.html.j2")
+        page_template = env.get_template(self.HTML_TEMPLATE)
         html = page_template.render(album=self, items=self.ordered_items())
-        html_file = self.directory / output_file
+        html_file = self.full_directory / self.html_filename
         print(f"Writing HTML to {html_file}")
         html_file.write_text(html)
+        return html_file
