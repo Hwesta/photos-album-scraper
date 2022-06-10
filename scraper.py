@@ -6,7 +6,7 @@ from photoalbum.album import Album
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
-        "Scrapes a Google Photos album into static HTML page with images.\n"
+        description="Scrapes a Google Photos album into a static HTML page with locally saved images, including text and maps."
     )
 
     # Where to get data - 1 required
@@ -26,25 +26,25 @@ if __name__ == "__main__":
         help="Load the album info from a previously-saved protobuf file. See also --save-protobuf",
     )
 
-    # What to do with it - any or all
+    # What to do with it - any or all can be given
     behaviour_group = parser.add_argument_group(
         "Behaviour", "All of these are optional. Probably you want --download --render"
     )
     behaviour_group.add_argument(
         "--download",
         action="store_true",
-        help="Download images for the album into --output-directory",
+        help="Download all images in the album",
     )
     behaviour_group.add_argument(
         "--render",
         action="store_true",
-        help="Render the full album to HTML. See also --html-file-name",
+        help="Render the album to a HTML page using local images. See also --html-file-name",
     )
     behaviour_group.add_argument(
         "--save-protobuf",
         metavar="PATH/TO/FILENAME",
         type=Path,
-        help="Write the album's protobuf output to this file. Useful for debugging, or saving the raw album info so the HTML can be changed and re-rendered. See also --load",
+        help="Write the album's protobuf output to this file. Useful for debugging, or saving the album info so the HTML can be changed and re-rendered. See also --load",
     )
     behaviour_group.add_argument(
         "--print-ordering", action="store_true", help="Print each item in sorted order"
@@ -52,19 +52,19 @@ if __name__ == "__main__":
 
     # Output options
     config_group = parser.add_argument_group(
-        "Output", "Override where the saved album goes"
+        "Output", "Override where the saved album goes."
     )
     config_group.add_argument(
         "--output-directory",
         metavar="PATH",
         type=Path,
-        help="Path to where the album directory is created. --album-directory-name is inside this. Default: this directory",
+        help="Path to where the album directory is created. `album-directory-name` is created inside here. Default: current directory",
     )
     config_group.add_argument(
         "--album-directory-name",
         metavar="DIRECTORY-NAME",
         type=Path,
-        help="Name of the subdirectory to put the album in. Default: slugified album name",
+        help="Name of the subdirectory to put the album images and HTML file in. Default: slugified album name",
     )
     config_group.add_argument(
         "--html-filename",
