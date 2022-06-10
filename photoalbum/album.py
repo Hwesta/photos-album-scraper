@@ -123,6 +123,11 @@ class Album:
         ordering_dict = {x.ordering_str: x for x in self.enrichments + self.images}
         return [ordering_dict[k] for k in sorted(ordering_dict)]
 
+    def print_ordering(self):
+        """Print the album items in sorted order"""
+        for item in self.ordered_items():
+            print(item)
+
     def render_html(self):
         """Render the album to a HTML file."""
         env = jinja2.Environment(loader=jinja2.PackageLoader(__name__))

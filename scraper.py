@@ -46,6 +46,9 @@ if __name__ == "__main__":
         type=Path,
         help="Write the album's protobuf output to this file. Useful for debugging, or saving the raw album info so the HTML can be changed and re-rendered. See also --load",
     )
+    behaviour_group.add_argument(
+        "--print-ordering", action="store_true", help="Print each item in sorted order"
+    )
 
     # Output options
     config_group = parser.add_argument_group(
@@ -93,6 +96,9 @@ if __name__ == "__main__":
         album.album_directory = args.album_directory_name
     if args.html_filename:
         album.html_filename = args.html_filename
+
+    if args.print_ordering:
+        album.print_ordering()
 
     if args.download:
         album.download_images()
