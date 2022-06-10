@@ -2,11 +2,11 @@
     null,
     [
         [
-            "AF1QipOlQgoYJGjKaFOMHJkYqQVH4zxkn9brxgwXHhq2",
+            "AF1QipOnFRGJ0Zz1uoEAPQWsQL79MpJ-_euXdFSRvR37",
             [
-                "https://lh3.googleusercontent.com/LsrFFBNSwatmdiOo1HkWmLm3Rp0rDFxvtisUx51cnTX7R-N5s-OsWsk0b4_KTckar_6wAHgdDjSWV4CZlsTYIPtr7FkHqRVEMaV3OMFBR-3DPh3OAwD7zueJL_K9cjWRK8QBavWbRQo",  # baseURl
-                4608, # w
-                3456, # h
+                "https://lh3.googleusercontent.com/VoFivFmYlwAGqwjgV_mjniHkl0zJh_v408WhNerXRpC_iPEL8YKNtMduuYGLxm5JZRAfQLqhs622FPHpKOs90qBNED4h6d3FIqyFj5ygLmImLZlPk-j_jSun9tiQBnvLsJxoGygydGU",
+                4608,
+                3456,
                 null,
                 [],
                 null,
@@ -14,17 +14,17 @@
                 null,
                 null,
                 [
-                    13155507
+                    4935251
                 ]
             ],
-            1654022822000, # date may 31 11: 47 photo taken
-            "TOt7ob2rr6UBovGSirT8orZJDaM",
-            -25200000, # tz offset
-            1654554455008, # june 6 15: 30 - added to album??
+            1654022789000,
+            "scY_ILEbyskwDxoC5z8D-AYVV3c",
+            -25200000,
+            1654803866595,
             [
-                "AF1QipMN6zXOdB5TdqYqMm_qJ4Q0699P" # same in both images
+                "AF1QipMN6zXOdB5TdqYqMm_qJ4Q0699P"
             ],
-            [ # same
+            [
                 [
                     2
                 ],
@@ -57,113 +57,113 @@
             null,
             [],
             null,
-            19222,
-            [],
-            { # related to location?
-                "101428965": [
-                    0,
-                    "vdh9cohf070000000000004k"
-                ]
-            }
-        ],
-        [
-            "AF1QipPSdifm0VQ8xCFp0rz74K-2G94BKU6ObaBEU_UT", # not the ID
-            [
-                "https://lh3.googleusercontent.com/di2eIfHVeI03KAvSkwflqo1SjAEKf2-hMh-Sq6xnbONyKReACEd2FHywgeVidqCbaBoEM26tUtJEBZGQedTToHHBHodBk3beWdz-HGGY4C2s9mekJ2ZAj2_2bNXa3MunO98pVAtIIwE",  # baseURl
-                4608, # w
-                3456, # h
-                null,
-                [],
-                null,
-                [],
-                null,
-                null,
-                [
-                    10511410
-                ]
-            ],
-            1654033897000, # created date may 31 2: 51pm - photo taken
-            "6gk6q8fiiGHd9i7XBwmkch1vZZE",
-            -25200000, # tzoffset
-            1654554455008,  # date - added to album? updated?
-            [
-                "AF1QipMN6zXOdB5TdqYqMm_qJ4Q0699P" # same in both images
-            ],
-            [ # same
-                [
-                    2
-                ],
-                [
-                    31,
-                    false,
-                    true
-                ],
-                [
-                    36,
-                    false,
-                    true
-                ],
-                [
-                    8
-                ],
-                [
-                    21
-                ],
-                [
-                    19
-                ],
-                [
-                    22
-                ]
-            ],
-            2,
-            null,
-            null,
-            null,
-            [],
-            null,
-            19222,
+            19267,
             [],
             {
                 "101428965": [
                     0,
-                    "vdh9d3bi"
+                    "vdh9coge070000000000004k"
+                ]
+            }
+        ],
+        [
+            "AF1QipNsWu4NRBZCI64HCgFNmbcsUSo-zZzPj21fks_C",
+            [
+                "https://lh3.googleusercontent.com/kOqlbau1QL9H0M6aFnW-NCU__XIppeKiDkv-yXzjJ9yQgz4FK5LHEHHdLkCLUqGITqdYUD1ofiVbik7Tpf51wVL5pCd1EbR9SarKq6B3GNfTHgo4fN-woWbdMiXyZtepU5jbIHKY-Hk",
+                3456,
+                4608,
+                null,
+                [],
+                null,
+                [],
+                null,
+                null,
+                [
+                    6380628
+                ]
+            ],
+            1654022801000,
+            "9ayzh06X4ZvfRAUxUqSIsBe_F0M",
+            -25200000,
+            1654803866595,
+            [
+                "AF1QipMN6zXOdB5TdqYqMm_qJ4Q0699P"
+            ],
+            [
+                [
+                    2
+                ],
+                [
+                    31,
+                    false,
+                    true
+                ],
+                [
+                    36,
+                    false,
+                    true
+                ],
+                [
+                    8
+                ],
+                [
+                    21
+                ],
+                [
+                    19
+                ],
+                [
+                    22
+                ]
+            ],
+            2,
+            null,
+            null,
+            null,
+            [],
+            null,
+            19267,
+            [],
+            {
+                "101428965": [
+                    0,
+                    "vdh9cogq"
                 ]
             }
         ]
     ],
     "",
-    [ # album sharing info?
-        "AF1QipOsyTRCCkFhI8kRqZiQ8K5ICY_836mUn6wQNmiPRZUAxaGLGL4pMqylMVe04RNbDA", # part of share URL
+    [
+        "AF1QipOsyTRCCkFhI8kRqZiQ8K5ICY_836mUn6wQNmiPRZUAxaGLGL4pMqylMVe04RNbDA",
         "Scraping test album",
         [
-            1654022822000, # date may 31 11: 47 photo taken
-            1654033897000, # created date may 31 2: 51pm - photo taken
+            1654022789000,
+            1654022801000,
             null,
             null,
-            1654554485407, # june 6 3pm - album created??
+            1654554485407,
             [
-                1654022822000, # date may 31 11: 47 photo taken
-                -25200000 # tz offset? 7 hours
+                1654022789000,
+                -25200000
             ],
             [
-                1654033897000,# created date may 31 2: 51pm - photo taken
-                -25200000 # tz offset? 7 hours
+                1654022801000,
+                -25200000
             ],
-            1654571097091, # june 6 2022 20: 04
-            1654554485407 # june 6 15: 23
+            1654803935140,
+            1654803866595
         ],
-        "https://video-downloads.googleusercontent.com/AGQNM9IM-8c_FisjeDAkr5JU2eRHS9WSIcRuEYWBugjD2GYkjvgdcvB71rRPU4l-gXVrvTVAE9-kn8PWVaHZH5Wwp-5L3E1LqHrZmjaKrLoaUGbN0XOiSHrlAmuBbtgaWuoLsN9wivWoEcdgTYwpRWnBaGk4wr6_e40bcupSQpBSMSKu35I1sZURIq8ukENkQUUG665HcQK5nz40vedQnQw2j8c-dIr3GvkPEqwDsQGzeUOY0TGOocUvLUq0CYQTdpqRGN_3eA7v",
+        "https://video-downloads.googleusercontent.com/AGQNM9K8crugxyqkEPxtvK-vNZFLTxv9vaKFJIkqC2UPasRYA8eXhChIuobNoBcdxAg53xJlO6ioun6soojP0vM_unOwlsMMAAz9JpDaHZ5Rz64XRg9l8o__MfST4eVGdxFkvnmRCqU9frK83TNVNpHphhcV6nCQ8AHujf5xcBkZNqpvZl8ge5Qis_BWvh6RZvs_GUiyTBbl9K3exo03GkhEgB1nro2sBI_LtCvPbC-zEzax8hbl4Ue_-I7cV95c93m3kS4uwjHs",
         [
-            "https://lh3.googleusercontent.com/di2eIfHVeI03KAvSkwflqo1SjAEKf2-hMh-Sq6xnbONyKReACEd2FHywgeVidqCbaBoEM26tUtJEBZGQedTToHHBHodBk3beWdz-HGGY4C2s9mekJ2ZAj2_2bNXa3MunO98pVAtIIwE", # image 2 base URL
-            4608, # w
-            3456, # h
+            "https://lh3.googleusercontent.com/VoFivFmYlwAGqwjgV_mjniHkl0zJh_v408WhNerXRpC_iPEL8YKNtMduuYGLxm5JZRAfQLqhs622FPHpKOs90qBNED4h6d3FIqyFj5ygLmImLZlPk-j_jSun9tiQBnvLsJxoGygydGU",
+            4608,
+            3456,
             null,
             [],
             null,
             [],
             null,
-            [ # image metadata
+            [
                 4608,
                 3456,
                 1,
@@ -174,21 +174,21 @@
                     null,
                     4.25,
                     1.7,
-                    800,
-                    0.05,
+                    400,
+                    0.02,
                     null,
                     1
                 ]
             ],
             [
-                10511410
+                4935251
             ]
         ],
         [
             "AF1QipMN6zXOdB5TdqYqMm_qJ4Q0699P",
             "108435023741049154519",
             null,
-            "https://lh3.googleusercontent.com/lthLvUj7csj7o6ZQKyOAv_tHrGxCjsLj6bmwhPXSttzgx98xRg4G8CfFIbxGBga24OkR2gzDqw47cL7NXwEBa7y0uI7kALELXMzcOeyKfkQ", # my av big
+            "https://lh3.googleusercontent.com/lthLvUj7csj7o6ZQKyOAv_tHrGxCjsLj6bmwhPXSttzgx98xRg4G8CfFIbxGBga24OkR2gzDqw47cL7NXwEBa7y0uI7kALELXMzcOeyKfkQ",
             null,
             [
                 "AF1QipMN6zXOdB5TdqYqMm_qJ4Q0699P",
@@ -206,7 +206,7 @@
                 "Holly"
             ],
             [
-                "https://lh3.googleusercontent.com/a/AATXAJx1n2iOJK_DTMRmJ3FJj3WbpM5tVL7uEyzVImf2sA" # my av
+                "https://lh3.googleusercontent.com/a/AATXAJx1n2iOJK_DTMRmJ3FJj3WbpM5tVL7uEyzVImf2sA"
             ],
             null,
             null,
@@ -249,7 +249,7 @@
                 true
             ]
         ],
-        "AF1QipOsyTRCCkFhI8kRqZiQ8K5ICY_836mUn6wQNmiPRZUAxaGLGL4pMqylMVe04RNbDA", # part of album share
+        "AF1QipOsyTRCCkFhI8kRqZiQ8K5ICY_836mUn6wQNmiPRZUAxaGLGL4pMqylMVe04RNbDA",
         true,
         [
             [
@@ -348,7 +348,7 @@
                     "Holly"
                 ],
                 [
-                    1654571052363,
+                    1654803866595,
                     1654554485407,
                     []
                 ],
@@ -371,7 +371,7 @@
             false
         ],
         1,
-        "https://photos.app.goo.gl/gcrtqKqLaxkz2jYcA", # redirect URL
+        "https://photos.app.goo.gl/gcrtqKqLaxkz2jYcA",
         null,
         5,
         [],
@@ -388,7 +388,7 @@
     ],
     [
         [
-            "AF1QipPIawvW8shUbT4NGrGEPaZdIEgTBE900SoMc-oudntXjsUWy5x4",
+            "AF1QipPDyUGQ1BX-MpG7cy-uVpGw-_by8XJOpolqtcZd3oLCm2lcUfA9",
             null,
             null,
             null,
@@ -409,71 +409,18 @@
                     [
                         1,
                         [
-                            "AOEU text here"
+                            "text1"
                         ]
                     ]
                 ],
                 "101428965": [
                     0,
-                    "vdh9cohf0700g0000000004a"
+                    "vdh9coge06vv00000000004a"
                 ]
             }
         ],
         [
-            "AF1QipNv0h78Co3shx2KGoE-UeBbJWdRtWUbKuLmRMovvO1hZCErC0UQ",
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            [],
-            null,
-            null,
-            null,
-            null,
-            [],
-            null,
-            null,
-            [],
-            {
-                "99218341": [
-                    [
-                        2,
-                        null,
-                        [
-                            null,
-                            [
-                                [
-                                    3,
-                                    [
-                                        [
-                                            "6090683026124656563",
-                                            "13515749891091067787"
-                                        ]
-                                    ],
-                                    null,
-                                    "Vancouver",
-                                    "British Columbia",
-                                    [
-                                        492827291,
-                                        -1231207375
-                                    ],
-                                    null,
-                                    0
-                                ]
-                            ]
-                        ]
-                    ]
-                ],
-                "101428965": [
-                    0,
-                    "vdh9cohf06vv00000000004a"
-                ]
-            }
-        ],
-        [
-            "AF1QipNlU8yQMWNSr6s7GHtGRb8flrj1gjfB2UL_n83orydpPrhduszz",
+            "AF1QipOAwh72MmUdfwrqlcz7CForyIwgaayF6V9LkbYjjSZK4Rl93RxF",
             null,
             null,
             null,
@@ -494,13 +441,13 @@
                     [
                         1,
                         [
-                            "new text at the end"
+                            "text2"
                         ]
                     ]
                 ],
                 "101428965": [
                     0,
-                    "vdh9d3bi06vv00000000004a"
+                    "vdh9coge0700g0000000004a"
                 ]
             }
         ]
