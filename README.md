@@ -6,8 +6,22 @@ Export of Google Photos albums sucks. Google Takeout only does photos. The [API]
 
 ## Goal
 
-Write a script that can export a Google Photos album into human-readable HTML, CSS and Javascript that I can host anywhere.
+Write a script that can export a Google Photos album into human-readable HTML and locally stored images.
 
-I couldn't find any projects that did this already (but please let me know if I missed any).
+## Installation
 
-Project left un-licensed (and thus copyrighted) until it actually does something.
+I wrote this for myself, so the installation assumes you have a Python development environment. Only tested on Python 3.10
+
+1. Checkout repo
+1. `pipenv install`
+1. `pipenv run ./scraper.py`
+
+## Running
+
+Typical usage: `pipenv run ./scraper.py --fetch <URL> --download --render --output-directory <PATH>`
+
+`--fetch` fetches the album info from a public URL and parses it.  \
+`--download` downloads all images in the album to `output-directory`.  \
+`--render` creates a HTML page with all the images, text and maps in `output-directory`.
+
+Further options are available with `-h` or `--help`
