@@ -102,15 +102,24 @@ class Image:
         self.file_id = self.protobuf[3]
         self.ordering_str = self.protobuf[self.ORDERING_DICT_IDX][self.ORDERING_KEY][1]
 
-    def download_image(self, directory: Path, redownload=False):
+    def download_image(
+        self, directory: Path, max_width=None, max_height=None, redownload=False
+    ):
         """Download the images from base_url"""
         # TODO videos?
         if self.find_local_image(directory) and not redownload:
             print(f"Found {directory / self.relative_path}, not re-downloading")
             return
 
+        # Construct URL
+        if max_width or max_height:
+            max_width = max_width or self.width
+            max_height = max_height or self.height
+            url = f"{self.base_url}=w{max_width}-h{max_height}"
+        else:
+            url = f"{self.base_url}=d"
+
         # Get
-        url = f"{self.base_url}=d"
         print(f"Downloading file from {url}")
         response = requests.get(url)
         if response.status_code != 200:

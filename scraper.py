@@ -50,6 +50,23 @@ if __name__ == "__main__":
         "--print-ordering", action="store_true", help="Print each item in sorted order"
     )
 
+    # Image download options
+    image_group = parser.add_argument_group(
+        "Image download", "Configure how images are downoladed"
+    )
+    image_group.add_argument(
+        "--max-width",
+        type=int,
+        default=None,
+        help="Maximum width for downloaded images",
+    )
+    image_group.add_argument(
+        "--max-height",
+        type=int,
+        default=None,
+        help="Maximum height for downloaded images",
+    )
+
     # Output options
     config_group = parser.add_argument_group(
         "Output", "Override where the saved album goes."
@@ -101,7 +118,7 @@ if __name__ == "__main__":
         album.print_ordering()
 
     if args.download:
-        album.download_images()
+        album.download_images(max_width=args.max_width, max_height=args.max_height)
 
     if args.render:
         if not args.download:

@@ -105,12 +105,14 @@ class Album:
         """Full output path"""
         return self.output_directory / self.album_directory
 
-    def download_images(self):
+    def download_images(self, max_width=None, max_height=None):
         """Download all images in the album to `full_directory`"""
         print(f"Downloading images to {self.full_directory}")
         self.full_directory.mkdir(parents=True, exist_ok=True)
         for image in self.images:
-            image.download_image(self.full_directory)
+            image.download_image(
+                self.full_directory, max_width=max_width, max_height=max_height
+            )
 
     def find_local_images(self):
         """Check `full_directory` to see if all images are there already"""
