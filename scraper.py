@@ -52,7 +52,8 @@ if __name__ == "__main__":
 
     # Image download options
     image_group = parser.add_argument_group(
-        "Image download", "Configure how images are downoladed"
+        "Image download",
+        "Configure how images are downloaded. Only relevant if --download specified",
     )
     image_group.add_argument(
         "--max-width",
@@ -65,6 +66,11 @@ if __name__ == "__main__":
         type=int,
         default=None,
         help="Maximum height for downloaded images",
+    )
+    image_group.add_argument(
+        "--redownload",
+        action="store_true",
+        help="Force all images to be downloaded, even if they already exist",
     )
 
     # Output options
@@ -118,7 +124,11 @@ if __name__ == "__main__":
         album.print_ordering()
 
     if args.download:
-        album.download_images(max_width=args.max_width, max_height=args.max_height)
+        album.download_images(
+            max_width=args.max_width,
+            max_height=args.max_height,
+            redownload=args.redownload,
+        )
 
     if args.render:
         if not args.download:

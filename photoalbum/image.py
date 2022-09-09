@@ -107,9 +107,12 @@ class Image:
     ):
         """Download the images from base_url"""
         # TODO videos?
-        if self.find_local_image(directory) and not redownload:
-            print(f"Found {directory / self.relative_path}, not re-downloading")
-            return
+        if self.find_local_image(directory):
+            if redownload:
+                print(f"Found {directory / self.relative_path}, overwriting")
+            else:
+                print(f"Found {directory / self.relative_path}, not re-downloading")
+                return
 
         # Construct URL
         if max_width or max_height:
