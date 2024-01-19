@@ -139,6 +139,7 @@ class Album:
         page_template = env.get_template(self.HTML_TEMPLATE)
         html = page_template.render(album=self, items=self.ordered_items())
         html_file = self.full_directory / self.html_filename
+        self.full_directory.mkdir(parents=True, exist_ok=True)
         print(f"Writing HTML to {html_file}")
         html_file.write_text(html)
         return html_file
