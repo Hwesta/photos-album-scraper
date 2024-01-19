@@ -15,6 +15,9 @@ black = "*"
 mypy = "*"
 ipython = "*"
 isort = "*"
+types-requests = "*"
+types-beautifulsoup4 = "*"
+types-python-slugify = "*"
 
 [requires]
 python_version = "3.11"
