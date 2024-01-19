@@ -1,1 +1,27 @@
-{{ item }}
+<figure class="mapbox">
+    <div id="map-{{item.source_location.lat}}-{{item.source_location.lon}}-{{item.destination_location.lat}}-{{item.destination_location.lon}}" class="map"></div>
+    <figcaption>{{item.source_location.main_text}} to {{item.destination_location.main_text}}</figcaption>
+</figure>
+
+<script>
+
+    var src_lat = {{ item.source_location.lat }};
+    var src_lon = {{ item.source_location.lon }};
+    var dst_lat = {{ item.destination_location.lat }};
+    var dst_lon = {{ item.destination_location.lon }};
+
+    var map = L.map('map-{{item.source_location.lat}}-{{item.source_location.lon}}-{{item.destination_location.lat}}-{{item.destination_location.lon}}', {
+        zoomSnap: 0.5
+    });
+
+    mapbox(map);
+
+    L.marker([src_lat, src_lon]).addTo(map);
+    L.marker([dst_lat, dst_lon]).addTo(map);
+
+    var polyline = L.polyline([[src_lat, src_lon], [dst_lat, dst_lon]], { color: 'red' }).addTo(map);
+
+    // zoom the map to the polyline
+    map.fitBounds(polyline.getBounds());
+
+</script>

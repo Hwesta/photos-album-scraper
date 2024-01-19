@@ -3,4 +3,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>{{ album.name }}</title>
+
+    {# Leaflet stuff for mapping #}
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <style>
+        .mapbox {
+            margin: 0 auto;
+            width: 50%;
+            border: 1px #cccccc solid;
+        }
+
+        .mapbox>div {
+            margin: 2px;
+        }
+
+        .mapbox>figcaption {
+            background-color: black;
+            color: white;
+            font-style: italic;
+            padding: 2px;
+            margin: 2px;
+            text-align: center;
+        }
+
+        .map {
+            height: 300px;
+        }
+
+        p {
+            text-align: center;
+        }
+
+        figure {
+            text-align: center;
+        }
+    </style>
+
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script>
+        var mapboxUrl = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+        var mapboxAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+        const mapbox = (map) => {
+            return L.tileLayer(mapboxUrl, {
+                attribution: mapboxAttribution,
+            }).addTo(map)
+        };
+    </script>
+    {# end Leaflet #}
 </head>
