@@ -47,13 +47,15 @@ if __name__ == "__main__":
         help="Write the album's protobuf output to this file. Useful for debugging, or saving the album info so the HTML can be changed and re-rendered. See also --load",
     )
     behaviour_group.add_argument(
-        "--print-ordering", action="store_true", help="Print each item in sorted order"
+        "--print-ordering",
+        action="store_true",
+        help="Print each item in sorted order. Mostly for debugging.",
     )
 
     # Image download options
     image_group = parser.add_argument_group(
         "Image download",
-        "Configure how images are downloaded. Only relevant if --download specified",
+        "Configure how images are downloaded. Only relevant with --download",
     )
     image_group.add_argument(
         "--max-width",
@@ -70,7 +72,7 @@ if __name__ == "__main__":
     image_group.add_argument(
         "--redownload",
         action="store_true",
-        help="Force all images to be downloaded, even if they already exist",
+        help="Force all images to be downloaded, even if they already exist. Useful if --max-width or --max-height changed.",
     )
 
     # Output options
