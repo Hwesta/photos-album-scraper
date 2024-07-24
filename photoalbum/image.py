@@ -79,23 +79,23 @@ class Image:
     ORDERING_DICT_IDX = 16
     ORDERING_KEY = "101428965"
 
-    def __init__(self, protobuf):
-        self.protobuf = protobuf
+    def __init__(self, protobuf: list):
+        self.protobuf: list = protobuf
         self.render_template = "image.html.j2"
-        self.ordering_str = None
-        self.base_url = None
-        self.width = None
-        self.height = None
-        self.file_id = None
-        self.relative_path = None
+        self.ordering_str: str | None = None
+        self.base_url: str | None = None
+        self.width: int | None = None
+        self.height: int | None = None
+        self.file_id: Path | None = None
+        self.relative_path: Path | None = None
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return repr(self.protobuf)
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Image: {self.file_id} {self.base_url} {self.width}x{self.height} path: {self.relative_path}"
 
-    def parse_protobuf(self):
+    def parse_protobuf(self) -> None:
         self.base_url = self.protobuf[1][0]
         self.width = self.protobuf[1][1]
         self.height = self.protobuf[1][2]
@@ -103,16 +103,25 @@ class Image:
         self.ordering_str = self.protobuf[self.ORDERING_DICT_IDX][self.ORDERING_KEY][1]
 
     def download_image(
-        self, directory: Path, max_width=None, max_height=None, redownload=False
-    ):
+        self,
+        directory: Path,
+        max_width: int | None = None,
+        max_height: int | None = None,
+        redownload: bool = False,
+    ) -> Path | None:
         """Download the images from base_url"""
         # TODO videos?
+        if not self.relative_path:
+            raise ValueError("Must call find_local_image first")
+        if not self.file_id:
+            raise ValueError("must call parse_protobuf first")
+
         if self.find_local_image(directory):
             if redownload:
                 print(f"Found {directory / self.relative_path}, overwriting")
             else:
                 print(f"Found {directory / self.relative_path}, not re-downloading")
-                return
+                return None
 
         # Construct URL
         if max_width or max_height:
@@ -127,7 +136,7 @@ class Image:
         response = requests.get(url)
         if response.status_code != 200:
             print(f"Error fetching {url}: {response.status_code}")
-            return
+            return None
 
         # Guess extension
         mimetype = magic.from_buffer(response.content, mime=True)
@@ -140,12 +149,14 @@ class Image:
         write_path.write_bytes(response.content)
         return write_path
 
-    def find_local_image(self, directory: Path):
+    def find_local_image(self, directory: Path) -> Path | None:
         """Check `directory` for the image"""
+        if not self.file_id:
+            raise ValueError("must call parse_protobuf first")
         matches = list(directory.glob(f"{self.file_id}.*"))
         if len(matches) == 0:
             print(f"No file found for {directory / self.file_id}.*")
-            return
+            return None
         elif len(matches) > 1:
             raise RuntimeError(f"Multiple files found for {directory / self.file_id}.*")
         self.relative_path = matches[0].relative_to(directory)

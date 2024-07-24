@@ -1,3 +1,6 @@
+import typing as t
+
+
 class Enrichments:
     """Parse an enrichment (text, location or map)
 
@@ -37,14 +40,14 @@ class Enrichments:
     ORDERING_KEY = "101428965"  # probably
 
     @classmethod
-    def create_enrichment(cls, enrichment):
+    def create_enrichment(cls, enrichment: list) -> Enrichments | None:
         child_cls = cls.get_class(enrichment)
         if not child_cls:
             return None
         return child_cls(enrichment)
 
     @classmethod
-    def get_class(cls, arr):
+    def get_class(cls, arr: list) -> type[Enrichments]:
         data_dict = arr[cls.DICT_IDX]
         type_key = data_dict[cls.DATA_KEY][0][0]
         # class_map can't be a class attribute because the child classes aren't defined when the class is defined
@@ -55,15 +58,15 @@ class Enrichments:
         }
         return class_map[type_key]
 
-    def __init__(self, protobuf):
+    def __init__(self, protobuf: list) -> None:
         self.protobuf = protobuf
-        self.ordering_str = None
-        self.render_template = None
+        self.ordering_str: str | None = None
+        self.render_template: str = ""
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return repr(self.protobuf)
 
-    def parse_protobuf(self):
+    def parse_protobuf(self) -> None:
         raise NotImplementedError("Implement in child class")
 
 
@@ -80,15 +83,15 @@ class Text(Enrichments):
     ]
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: t.Any, **kwargs: t.Any) -> None:
         super(Text, self).__init__(*args, **kwargs)
         self.render_template = "text.html.j2"
-        self.text_str = None
+        self.text_str: str | None = None
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'Text: "{self.text_str}"'
 
-    def parse_protobuf(self):
+    def parse_protobuf(self) -> None:
         data_dict = self.protobuf[self.DICT_IDX]
         self.text_str = data_dict[self.DATA_KEY][0][1][0]
         self.ordering_str = data_dict[self.ORDERING_KEY][1]
@@ -128,18 +131,18 @@ class Location(Enrichments):
     ]
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: t.Any, **kwargs: t.Any) -> None:
         super(Location, self).__init__(*args, **kwargs)
         self.render_template = "location.html.j2"
-        self.main_text = None
-        self.additional_text = None
-        self.lat = None
-        self.lon = None
+        self.main_text: str | None = None
+        self.additional_text: str | None = None
+        self.lat: float | None = None
+        self.lon: float | None = None
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'Location: "{self.main_text}", "{self.additional_text}" ({self.lat},{self.lon})'
 
-    def parse_protobuf(self, protobuf_is_inner=False):
+    def parse_protobuf(self, protobuf_is_inner: bool = False) -> None:
         if protobuf_is_inner:  # inside a Map
             inner_array = self.protobuf
         else:  # standalone
@@ -217,16 +220,16 @@ class Map(Enrichments):
     ],
     """
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: t.Any, **kwargs: t.Any):
         super(Map, self).__init__(*args, **kwargs)
         self.render_template = "map.html.j2"
-        self.source_location = None
-        self.destination_location = None
+        self.source_location: Location | None = None
+        self.destination_location: Location | None = None
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f"Map: {self.source_location} to {self.destination_location}"
 
-    def parse_protobuf(self):
+    def parse_protobuf(self) -> None:
         data_dict = self.protobuf[self.DICT_IDX]
         source_protobuf = data_dict[self.DATA_KEY][0][3][3][0]
         dest_protobuf = data_dict[self.DATA_KEY][0][3][4][0]
