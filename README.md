@@ -10,7 +10,7 @@ Write a script that can export a Google Photos album into human-readable HTML an
 
 ## Installation
 
-I wrote this for myself, so the installation assumes you have a Python development environment. Only tested on Python 3.10
+I wrote this for myself, so the installation assumes you have a Python development environment. Only tested on latest Python 3.
 
 1. Checkout repo
 1. `pipenv install`

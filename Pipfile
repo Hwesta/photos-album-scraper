@@ -20,4 +20,4 @@ types-beautifulsoup4 = "*"
 types-python-slugify = "*"
 
 [requires]
-python_version = "3.11"
+python_version = "3.12"
