@@ -40,14 +40,14 @@ class Enrichments:
     ORDERING_KEY = "101428965"  # probably
 
     @classmethod
-    def create_enrichment(cls, enrichment: list) -> Enrichments | None:
+    def create_enrichment(cls, enrichment: list) -> t.Self | None:
         child_cls = cls.get_class(enrichment)
         if not child_cls:
             return None
         return child_cls(enrichment)
 
     @classmethod
-    def get_class(cls, arr: list) -> type[Enrichments]:
+    def get_class(cls, arr: list) -> type:
         data_dict = arr[cls.DICT_IDX]
         type_key = data_dict[cls.DATA_KEY][0][0]
         # class_map can't be a class attribute because the child classes aren't defined when the class is defined

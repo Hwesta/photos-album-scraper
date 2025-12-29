@@ -23,14 +23,14 @@ class Album:
 
     def __init__(self) -> None:
         self.album_url: str | None = None
-        self.soup = None
-        self.protobuf: list | None = None
+        self.soup: BeautifulSoup | None = None
+        self.protobuf: list = []
         self.name: str | None = None
-        self.enrichments: list[Enrichments] | None = None
-        self.images: list[Image] | None = None
+        self.enrichments: list[Enrichments] = []
+        self.images: list[Image] = []
 
         self.output_directory = Path(".")
-        self.album_directory = None
+        self.album_directory: Path = Path("album-name")
         self.html_filename = "index.html"
 
     def get_album(self, album_url: str, parser: str = "html.parser") -> None:
