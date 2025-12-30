@@ -114,8 +114,6 @@ class Image:
     ) -> Path | None:
         """Download the images from base_url"""
         # TODO videos?
-        if not self.relative_path:
-            raise ValueError("Must call find_local_image first")
         if not self.file_id:
             raise ValueError("must call parse_protobuf first")
 
