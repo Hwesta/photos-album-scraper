@@ -48,7 +48,8 @@ class Album:
         self.soup = BeautifulSoup(response.text, features=parser)
 
         # Find the spot where the protobuf is defined
-        target = self.soup.find_all(string=re.compile(self.PROTOBUF_REGEX))[0]
+        possibilities = self.soup.find_all(string=re.compile(self.PROTOBUF_REGEX))
+        target = possibilities[1]
         start = target.find("[")
         end = target.rfind("]") + 1
 

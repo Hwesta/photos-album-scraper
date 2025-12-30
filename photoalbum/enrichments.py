@@ -35,7 +35,7 @@ class Enrichments:
     ]
     """
 
-    DICT_IDX = 16
+    DICT_IDX = 1
     DATA_KEY = "99218341"
     ORDERING_KEY = "101428965"  # probably
 

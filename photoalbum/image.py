@@ -76,7 +76,7 @@ class Image:
 
     """
 
-    ORDERING_DICT_IDX = 16
+    ORDERING_DICT_IDX = 9
     ORDERING_KEY = "101428965"
 
     def __init__(self, protobuf: list):
