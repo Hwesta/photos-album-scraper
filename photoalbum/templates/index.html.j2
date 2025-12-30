@@ -6,7 +6,7 @@ end_date: {{ album.end_date.date().isoformat() }}
 attendees: Holly
 ---
 {% for item in items %}
-{% with album_slug=album.slug() %}
+{% with album_slug=album.album_directory %}
 {% include item.render_template %}
 {% endwith %}
 {% endfor %}
