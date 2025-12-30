@@ -1,9 +1,9 @@
 ---
 layout: photo-album
 title: "{{ album.name }}"
-start_date: 2017-10-22
-end_date: 2017-10-30
-attendees: Holly and James
+start_date: {{ album.start_date.date().isoformat() }}
+end_date: {{ album.end_date.date().isoformat() }}
+attendees: Holly
 ---
 {% for item in items %}
 {% with album_slug=album.slug() %}
