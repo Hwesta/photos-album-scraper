@@ -454,7 +454,11 @@ class Album:
 
     def render_html(self) -> Path:
         """Render the album to a HTML file."""
-        env = jinja2.Environment(loader=jinja2.PackageLoader(__name__))
+        env = jinja2.Environment(
+            loader=jinja2.PackageLoader(__name__),
+            trim_blocks=True,
+            lstrip_blocks=True,
+        )
         page_template = env.get_template(self.HTML_TEMPLATE)
         html = page_template.render(album=self, items=self.ordered_items())
         html_file = self.full_directory / self.html_filename

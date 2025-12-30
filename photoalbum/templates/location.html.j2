@@ -1,12 +1,11 @@
 {% if item.lat and item.lon %}
 
-<figure class="mapbox">
+<figure class="mapbox map-location">
     <div id="map-{{ item.lat }}-{{ item.lon }}" class="map"></div>
     <figcaption>{{ item.main_text }}</figcaption>
 </figure>
 
 <script>
-
     var lat = {{ item.lat }};
     var lon = {{ item.lon }};
 
@@ -14,11 +13,9 @@
         center: [lat, lon],
         zoom: 14
     });
-
     mapbox(map);
 
     L.marker([lat, lon]).addTo(map);
-
 </script>
 
 {% else %}
