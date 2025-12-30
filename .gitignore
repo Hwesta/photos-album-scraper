@@ -1,0 +1,5 @@
+.vscode
+*.code-workspace
+scraping-test-album
+worldcon75-helsinki-estonia-aug-2017/
+*.pyc
