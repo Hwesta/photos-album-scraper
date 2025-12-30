@@ -89,6 +89,9 @@ class Image:
         self.file_id: Path | None = None
         self.relative_path: Path | None = None
 
+        self.first_in_group = False
+        self.last_in_group = False
+
     def __repr__(self) -> str:
         return repr(self.protobuf)
 

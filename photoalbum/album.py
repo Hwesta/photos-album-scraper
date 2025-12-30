@@ -1,3 +1,4 @@
+import itertools
 import json
 import re
 from pathlib import Path
@@ -136,7 +137,17 @@ class Album:
         ordering_dict: dict[str, Enrichments | Image] = {
             x.ordering_str: x for x in self.enrichments + self.images
         }
-        return [ordering_dict[k] for k in sorted(ordering_dict)]
+        ordered_items = [ordering_dict[k] for k in sorted(ordering_dict)]
+
+        # Set first/last in group flags
+        for classname, adjacent_items in itertools.groupby(
+            ordered_items, key=lambda x: type(x).__name__
+        ):
+            adjacent_items = list(adjacent_items)
+            adjacent_items[0].first_in_group = True
+            adjacent_items[-1].last_in_group = True
+
+        return ordered_items
 
     def print_ordering(self) -> None:
         """Print the album items in sorted order"""

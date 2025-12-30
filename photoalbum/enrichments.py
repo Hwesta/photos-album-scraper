@@ -63,6 +63,9 @@ class Enrichments:
         self.ordering_str: str | None = None
         self.render_template: str = ""
 
+        self.first_in_group = False
+        self.last_in_group = False
+
     def __repr__(self) -> str:
         return repr(self.protobuf)
 
