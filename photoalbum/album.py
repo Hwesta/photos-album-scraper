@@ -34,6 +34,9 @@ class Album:
         self.album_directory: Path = Path("album-name")
         self.html_filename = "index.html"
 
+    def slug(self):
+        return slugify(self.name)
+
     def get_album(self, album_url: str, parser: str = "html.parser") -> None:
         """Fetch album from URL, parse to protobuf"""
         self.album_url = album_url
@@ -80,7 +83,7 @@ class Album:
         self.name = self.protobuf[self.ALBUM_ARRAY_INDEX][1]
         self._parse_enrichments()
         self._parse_images()
-        self.album_directory = Path(slugify(self.name))
+        self.album_directory = Path(self.slug())
 
     def _parse_images(self) -> None:
         """Parse the images array in the protobuf"""

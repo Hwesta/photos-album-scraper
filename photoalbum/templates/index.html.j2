@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-{% include 'head.html.j2' %}
-
-<body>
-    <h2>{{album.name}}</h2>
-
-    {% for item in items %}
-    {% include item.render_template %}
-    {% endfor %}
-
-</body>
-
-</html>
+---
+layout: photo-album
+title: "{{ album.name }}"
+start_date: 2017-10-22
+end_date: 2017-10-30
+attendees: Holly and James
+---
+{% for item in items %}
+{% with album_slug=album.slug() %}
+{% include item.render_template %}
+{% endwith %}
+{% endfor %}

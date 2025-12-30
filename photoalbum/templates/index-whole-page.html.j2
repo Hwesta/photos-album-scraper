@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'head.html.j2' %}
+
+<body>
+    <h2>{{album.name}}</h2>
+
+    {% for item in items %}
+    {% include item.render_template %}
+    {% endfor %}
+
+</body>
+
+</html>

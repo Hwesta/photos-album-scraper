@@ -1,11 +1,6 @@
-{% if item.first_in_group %}
-OPEN ALBUM
-{% endif %}
-
-<figure>
-    <img src="{{item.relative_path}}">
-</figure>
-
-{% if item.last_in_group %}
-CLOSE ALBUM
-{% endif %}
+{% if item.first_in_group %}<div class='image-gallery'>{% endif %}
+    <figure>
+        <img src="{{ '{{' }} 'images/albums/{{album.slug()}}/{{ item.relative_path }}' | relative_url {{ '}}' }}" alt="TODO">
+    </figure>
+    {% if item.last_in_group %}
+</div>{% endif %}
