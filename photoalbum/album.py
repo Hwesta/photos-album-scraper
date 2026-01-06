@@ -374,7 +374,12 @@ class Album:
         """Parse the protobuf to get album, image, text and map info"""
         if self.protobuf is None:
             raise RuntimeError("Must fetch or load album first")
-        self.name = self.protobuf[self.ALBUM_ARRAY_INDEX][1]
+        try:
+            self.name = self.protobuf[self.ALBUM_ARRAY_INDEX][1]
+        except IndexError:
+            print("Failed to find album info, try nested protobuf")
+            self.protobuf = self.protobuf[0]
+            self.name = self.protobuf[self.ALBUM_ARRAY_INDEX][1]
         self.start_date, self.end_date = self.parse_start_end_dates()
         self._parse_enrichments()
         self._parse_images()
