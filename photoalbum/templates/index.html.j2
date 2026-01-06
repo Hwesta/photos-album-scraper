@@ -1,12 +1,17 @@
+title: {{ album.name }}
 ---
-layout: photo-album
-title: "{{ album.name }}"
-start_date: {{ album.start_date.date().isoformat() }}
-end_date: {{ album.end_date.date().isoformat() }}
-attendees: Holly
+attendees: with ??
 ---
+body_flow:
+
 {% for item in items %}
 {% with album_slug=album.album_directory %}
 {% include item.render_template %}
+
 {% endwith %}
 {% endfor %}
+
+---
+end_date: {{ album.end_date.date().isoformat() }}
+---
+start_date: {{ album.start_date.date().isoformat() }}
